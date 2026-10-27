@@ -1,0 +1,5 @@
+dist
+node_modules
+docs
+public/media
+package-lock.json

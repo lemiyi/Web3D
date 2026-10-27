@@ -1,0 +1,34 @@
+{
+  "id": "demo-cascades",
+  "titre": {
+    "fr": "[Démo] Conte du Cascades",
+    "langue": "[titre en langue d'origine à compléter]"
+  },
+  "type": "legende",
+  "region": "cascades",
+  "langue": "dioula",
+  "coordonnees": [-4.76, 10.6333],
+  "dureeMinutes": 4,
+  "resume": "[Démo] Conte fictif servant à tester la carte et les filtres. À remplacer par un vrai récit recueilli auprès d'un conteur.",
+  "conteur": {
+    "nom": "[à renseigner]",
+    "consentement": false
+  },
+  "sources": ["[à renseigner]"],
+  "scenes": [
+    {
+      "id": "s1",
+      "texteFr": "[Démo] Texte de démonstration, à remplacer par le vrai récit.",
+      "texteLangue": "[texte en langue d'origine à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "suite": "s2"
+    },
+    {
+      "id": "s2",
+      "texteFr": "[Démo] Texte de démonstration, à remplacer par le vrai récit.",
+      "texteLangue": "[texte en langue d'origine à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "fin": true
+    }
+  ]
+}

@@ -1,0 +1,93 @@
+[
+  {
+    "id": "boucle-du-mouhoun",
+    "nom": "Boucle du Mouhoun",
+    "chefLieu": "Dédougou",
+    "centre": [-3.4608, 12.4633],
+    "langues": ["dioula"]
+  },
+  {
+    "id": "cascades",
+    "nom": "Cascades",
+    "chefLieu": "Banfora",
+    "centre": [-4.76, 10.6333],
+    "langues": ["dioula"]
+  },
+  {
+    "id": "centre",
+    "nom": "Centre",
+    "chefLieu": "Ouagadougou",
+    "centre": [-1.5197, 12.3714],
+    "langues": ["moore"]
+  },
+  {
+    "id": "centre-est",
+    "nom": "Centre-Est",
+    "chefLieu": "Tenkodogo",
+    "centre": [-0.37, 11.78],
+    "langues": ["bissa", "moore"]
+  },
+  {
+    "id": "centre-nord",
+    "nom": "Centre-Nord",
+    "chefLieu": "Kaya",
+    "centre": [-1.0844, 13.0917],
+    "langues": ["moore"]
+  },
+  {
+    "id": "centre-ouest",
+    "nom": "Centre-Ouest",
+    "chefLieu": "Koudougou",
+    "centre": [-2.3667, 12.25],
+    "langues": ["moore"]
+  },
+  {
+    "id": "centre-sud",
+    "nom": "Centre-Sud",
+    "chefLieu": "Manga",
+    "centre": [-1.07, 11.6633],
+    "langues": ["moore"]
+  },
+  {
+    "id": "est",
+    "nom": "Est",
+    "chefLieu": "Fada N'Gourma",
+    "centre": [0.35, 12.0617],
+    "langues": ["gulmancema"]
+  },
+  {
+    "id": "hauts-bassins",
+    "nom": "Hauts-Bassins",
+    "chefLieu": "Bobo-Dioulasso",
+    "centre": [-4.2979, 11.1771],
+    "langues": ["dioula"]
+  },
+  {
+    "id": "nord",
+    "nom": "Nord",
+    "chefLieu": "Ouahigouya",
+    "centre": [-2.4214, 13.5828],
+    "langues": ["moore", "fulfulde"]
+  },
+  {
+    "id": "plateau-central",
+    "nom": "Plateau-Central",
+    "chefLieu": "Ziniaré",
+    "centre": [-1.2967, 12.5833],
+    "langues": ["moore"]
+  },
+  {
+    "id": "sahel",
+    "nom": "Sahel",
+    "chefLieu": "Dori",
+    "centre": [-0.0344, 14.0354],
+    "langues": ["fulfulde"]
+  },
+  {
+    "id": "sud-ouest",
+    "nom": "Sud-Ouest",
+    "chefLieu": "Gaoua",
+    "centre": [-3.1833, 10.3333],
+    "langues": ["dagara"]
+  }
+]

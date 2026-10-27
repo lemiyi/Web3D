@@ -1,0 +1,45 @@
+{
+  "id": "yennenga",
+  "titre": { "fr": "La princesse Yennenga", "langue": "[titre en mooré à compléter]" },
+  "type": "legende",
+  "region": "centre",
+  "langue": "moore",
+  "coordonnees": [-1.52, 12.37],
+  "dureeMinutes": 4,
+  "resume": "[Conte de démonstration pour valider la structure — à remplacer par le vrai récit.]",
+  "conteur": { "nom": "[à renseigner]", "consentement": false },
+  "sources": ["[à renseigner]"],
+  "scenes": [
+    {
+      "id": "s1",
+      "texteFr": "[Démo] La princesse part à cheval, seule, vers l'inconnu.",
+      "texteLangue": "[texte en mooré à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "suite": "s2"
+    },
+    {
+      "id": "s2",
+      "texteFr": "[Démo] Au bord de la route, deux chemins s'ouvrent devant elle.",
+      "texteLangue": "[texte en mooré à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "choix": [
+        { "label": "Suivre la rivière", "vers": "s3a" },
+        { "label": "Entrer dans la forêt", "vers": "s3b" }
+      ]
+    },
+    {
+      "id": "s3a",
+      "texteFr": "[Démo] La rivière la mène jusqu'à un village.",
+      "texteLangue": "[texte en mooré à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "fin": true
+    },
+    {
+      "id": "s3b",
+      "texteFr": "[Démo] La forêt cache un chasseur solitaire.",
+      "texteLangue": "[texte en mooré à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "fin": true
+    }
+  ]
+}

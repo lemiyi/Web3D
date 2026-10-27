@@ -1,0 +1,102 @@
+@import 'tailwindcss';
+@import '@fontsource/barlow/latin-400.css';
+@import '@fontsource/barlow/latin-500.css';
+@import '@fontsource/barlow/latin-600.css';
+@import '@fontsource/barlow-condensed/latin-600.css';
+@import '@fontsource/barlow-condensed/latin-700.css';
+@import '@fontsource-variable/literata/wght.css';
+
+/*
+ * La Carte Murale : les couleurs viennent des altitudes du Burkina Faso.
+ * r0 à r5 sont les bandes de relief, de la vallée (vert) aux hauteurs du sud-ouest (brun).
+ * nuit est le fond de la carte hors du pays ; os est le papier clair des étiquettes.
+ */
+@theme {
+  --color-nuit: #0f1640;
+  --color-indigo: #1d2a6b;
+  --color-os: #fbf1d3;
+  --color-r0: #7fa33f;
+  --color-r1: #a9b445;
+  --color-r2: #e2bd45;
+  --color-r3: #cf8128;
+  --color-r4: #a8401c;
+  --color-r5: #6e2a14;
+
+  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
+  --font-sans: 'Barlow', system-ui, sans-serif;
+  --font-serif: 'Literata Variable', Georgia, serif;
+
+  --ease-sortie: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  min-height: 100%;
+  background: var(--color-nuit);
+  scrollbar-color: var(--color-r3) var(--color-nuit);
+}
+
+body {
+  min-height: 100svh;
+  background: var(--color-nuit);
+  color: var(--color-os);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  caret-color: var(--color-r2);
+}
+
+::selection {
+  background: var(--color-r2);
+  color: var(--color-nuit);
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-r2);
+  outline-offset: 3px;
+}
+
+.sur-teinte :focus-visible {
+  outline-color: var(--color-nuit);
+}
+
+/* Chiffres alignés pour les latitudes, durées et compteurs. */
+.chiffres {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Les bandes de relief montent une à une, des vallées vers les hauteurs. */
+@keyframes montee {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+}
+
+.bande {
+  animation: montee 1000ms var(--ease-sortie) backwards;
+  animation-delay: calc(var(--i) * 150ms);
+}
+
+@keyframes apparition {
+  from {
+    opacity: 0;
+    transform: scale(0.4);
+  }
+}
+
+.repere-apparition {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: apparition 600ms var(--ease-sortie) backwards;
+  animation-delay: calc(900ms + var(--i) * 90ms);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
