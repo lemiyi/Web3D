@@ -8,7 +8,7 @@ import {
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import type { CarteHero } from '@/lib/carteHero'
-import { contes, langueParCode, numeroDuConte } from '@/lib/contenu'
+import { contes, couleurLangue, numeroDuConte } from '@/lib/contenu'
 import { LIBELLES_TYPE } from '@/lib/filtres'
 import { useAppStore } from '@/store/useAppStore'
 
@@ -17,12 +17,11 @@ type Etape = {
   regions: string[]
   titre: string
   texte: string
-  fond: string
-  teinte: number // bande de relief qui donne la couleur du fond
-  latitude: number
+  fond: string // la couleur du fond suit une bande de relief
+  latitude: number // latitude du chef-lieu, lue par la règle
 }
 
-// Du nord au sud : la couleur du fond suit les bandes de relief, la règle suit la latitude du chef-lieu.
+// Du nord au sud.
 const ETAPES: Etape[] = [
   {
     langue: 'fulfulde',
@@ -30,8 +29,7 @@ const ETAPES: Etape[] = [
     titre: 'Le Sahel parle fulfuldé',
     texte:
       "Dans le nord, autour de Dori, le fulfuldé est la langue des Peuls, un peuple d'éleveurs qui mène ses troupeaux de pâturage en pâturage.",
-    fond: 'bg-r2 text-nuit',
-    teinte: 2,
+    fond: 'bg-relief-2 text-terre-900',
     latitude: 14.0,
   },
   {
@@ -40,8 +38,7 @@ const ETAPES: Etape[] = [
     titre: 'Le Centre parle mooré',
     texte:
       "Autour de Ouagadougou et sur le plateau, le mooré est la langue des Mossi. C'est là que se raconte la légende de la princesse Yennenga, mère des royaumes mossi.",
-    fond: 'bg-r3 text-nuit',
-    teinte: 3,
+    fond: 'bg-relief-3 text-terre-900',
     latitude: 12.4,
   },
   {
@@ -50,8 +47,7 @@ const ETAPES: Etape[] = [
     titre: "L'Est parle gulmancema",
     texte:
       'Autour de Fada N’Gourma, le gulmancema est la langue des Gulmance, des agriculteurs qui vivent aux côtés d’éleveurs peuls.',
-    fond: 'bg-r4 text-os',
-    teinte: 4,
+    fond: 'bg-relief-4 text-terre-50',
     latitude: 12.1,
   },
   {
@@ -60,12 +56,21 @@ const ETAPES: Etape[] = [
     titre: "L'Ouest parle dioula",
     texte:
       "À Bobo-Dioulasso et dans les Cascades, on parle le dioula, une langue mandé. C'est aussi à l'ouest que se trouvent les reliefs les plus élevés du pays.",
-    fond: 'bg-r0 text-nuit',
-    teinte: 0,
+    fond: 'bg-relief-0 text-terre-900',
     latitude: 11.2,
+  },
+  {
+    langue: 'dagara',
+    regions: ['sud-ouest'],
+    titre: 'Le Sud-Ouest parle dagara',
+    texte:
+      'Autour de Gaoua, le dagara compte parmi les langues parlées dans le sud-ouest du pays, tout près de la frontière avec le Ghana et la Côte d’Ivoire.',
+    fond: 'bg-relief-1 text-terre-900',
+    latitude: 10.3,
   },
 ]
 
+// La région est peinte avec les vraies bandes d'altitude (réutilisées depuis la carte du premier écran).
 function Silhouette({
   carte,
   regionIds,
@@ -73,19 +78,23 @@ function Silhouette({
   carte: CarteHero | null
   regionIds: string[]
 }) {
-  if (!carte) return <div className="h-72 lg:h-[26rem]" />
+  if (!carte) return <div className="h-80 lg:h-[32rem]" />
   const regions = carte.regions.filter((r) => regionIds.includes(r.id))
   const x0 = Math.min(...regions.map((r) => r.bbox[0]))
   const y0 = Math.min(...regions.map((r) => r.bbox[1]))
   const x1 = Math.max(...regions.map((r) => r.bbox[0] + r.bbox[2]))
   const y1 = Math.max(...regions.map((r) => r.bbox[1] + r.bbox[3]))
-  const marge = 10
+  const marge = 8
   const clip = `clip-${regionIds.join('-')}`
   return (
     <svg
       aria-hidden="true"
       viewBox={`${x0 - marge} ${y0 - marge} ${x1 - x0 + 2 * marge} ${y1 - y0 + 2 * marge}`}
-      className="h-72 w-full lg:h-[26rem]"
+      className="h-80 w-full overflow-visible lg:h-[32rem]"
+      style={{
+        filter:
+          'drop-shadow(0 12px 16px color-mix(in srgb, var(--terre-900) 40%, transparent))',
+      }}
     >
       <defs>
         <clipPath id={clip}>
@@ -95,11 +104,19 @@ function Silhouette({
         </clipPath>
       </defs>
       {regions.map((r) => (
-        <use key={r.id} href={`#region-${r.id}`} fill="var(--color-nuit)" stroke="none" />
+        <use key={r.id} href={`#region-${r.id}`} fill="var(--relief-0)" stroke="none" />
       ))}
-      <g clipPath={`url(#${clip})`} fill="none" strokeWidth=".9">
+      <g clipPath={`url(#${clip})`}>
         {carte.bandes.map((b, i) => (
-          <use key={b.min} href={`#bande-${i}`} stroke={`var(--color-r${i + 1})`} />
+          <use
+            key={b.min}
+            href={`#bande-${i}`}
+            fill={`var(--relief-${i + 1})`}
+            fillRule="evenodd"
+            stroke="var(--terre-900)"
+            strokeOpacity=".3"
+            strokeWidth=".6"
+          />
         ))}
       </g>
       {regions.map((r) => (
@@ -107,8 +124,9 @@ function Silhouette({
           key={r.id}
           href={`#region-${r.id}`}
           fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
+          stroke="var(--terre-900)"
+          strokeWidth="3.5"
+          strokeLinejoin="round"
         />
       ))}
     </svg>
@@ -119,7 +137,6 @@ function ListeContes({ langue }: { langue: string }) {
   const navigate = useNavigate()
   const selectionner = useAppStore((s) => s.selectionner)
   const liste = contes.filter((c) => c.langue === langue)
-  const couleur = langueParCode(langue)?.couleur
   return (
     <ul className="mt-8 border-t border-current/30">
       {liste.map((c) => (
@@ -130,25 +147,25 @@ function ListeContes({ langue }: { langue: string }) {
               selectionner(c.id)
               navigate('/carte')
             }}
-            className="group flex w-full items-center gap-4 py-3.5 text-left transition-colors duration-200 hover:bg-current/10"
+            className="group flex w-full flex-wrap items-center gap-x-4 gap-y-1 py-3.5 text-left transition-colors duration-200 hover:bg-current/10"
           >
             <span
               aria-hidden="true"
-              className="chiffres grid size-9 shrink-0 place-items-center rounded-full border-[3px] border-nuit font-display text-lg font-bold text-os"
-              style={{ background: couleur }}
+              className="chiffres grid size-10 shrink-0 place-items-center rounded-full border-[3px] border-terre-900 font-display text-lg font-extrabold text-sur-lang"
+              style={{ background: couleurLangue(langue) }}
             >
               {numeroDuConte(c.id)}
             </span>
-            <span className="flex-1">
-              <span className="block font-display text-2xl font-semibold uppercase leading-tight tracking-wide">
+            <span className="min-w-0 flex-1 basis-40">
+              <span className="block font-display text-xl font-bold leading-tight tracking-tight">
                 {c.titre.fr}
               </span>
-              <span className="chiffres block text-base opacity-80">
+              <span className="chiffres block text-base">
                 {LIBELLES_TYPE[c.type]} · {c.dureeMinutes} min
                 {!c.conteur.consentement && ' · contenu provisoire'}
               </span>
             </span>
-            <span className="font-display text-lg font-semibold uppercase tracking-wider underline underline-offset-4 decoration-2 group-hover:decoration-4">
+            <span className="ml-[3.5rem] text-base font-bold underline decoration-2 underline-offset-4 group-hover:decoration-4 sm:ml-0">
               Sur la carte
             </span>
           </button>
@@ -158,6 +175,7 @@ function ListeContes({ langue }: { langue: string }) {
   )
 }
 
+// Règle de latitude : verticale sur grand écran, barre collante sous la pilule sur téléphone.
 function Regle({
   progression,
 }: {
@@ -168,27 +186,44 @@ function Regle({
   const p = reduit ? progression : amorti
   const lat = useTransform(
     p,
-    [0, 0.34, 0.67, 1],
+    ETAPES.map((_, i) => i / (ETAPES.length - 1)),
     ETAPES.map((e) => e.latitude),
   )
   const texte = useTransform(lat, (v) => `${v.toFixed(1).replace('.', ',')}° N`)
   return (
-    <div
-      aria-hidden="true"
-      className="pointer-events-none absolute inset-y-0 left-0 hidden w-28 lg:block"
-    >
-      <div className="sticky top-14 flex h-[calc(100svh-3.5rem)] flex-col items-center gap-4 py-10">
-        <motion.span className="chiffres bg-nuit px-2.5 py-1 font-display text-xl font-bold tracking-wider text-os">
+    <>
+      <div
+        aria-hidden="true"
+        className="sticky top-[4.6rem] z-20 mx-3 flex items-center gap-3 rounded-full bg-terre-900 px-4 py-2 text-terre-50 lg:hidden"
+      >
+        <motion.span className="chiffres w-20 font-display text-lg font-extrabold tracking-tight">
           {texte}
         </motion.span>
-        <div className="relative w-1.5 flex-1 bg-nuit/25">
+        <div className="relative h-1.5 flex-1 overflow-hidden rounded-full bg-terre-50/25">
           <motion.div
-            className="absolute inset-0 origin-top bg-nuit"
-            style={{ scaleY: p }}
+            className="absolute inset-0 origin-left bg-terre-50"
+            style={{ scaleX: p }}
           />
         </div>
       </div>
-    </div>
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-y-0 left-0 hidden w-28 lg:block"
+      >
+        <div className="sticky top-[4.5rem] flex h-[calc(100svh-4.5rem)] flex-col items-center gap-4 py-10">
+          <motion.span className="chiffres rounded-full bg-terre-900 px-3 py-1 font-display text-xl font-extrabold tracking-tight text-terre-50">
+            {texte}
+          </motion.span>
+          <div className="relative w-1.5 flex-1 overflow-hidden rounded-full bg-terre-900/25">
+            <motion.div
+              className="absolute inset-0 origin-top bg-terre-900"
+              style={{ scaleY: p }}
+            />
+          </div>
+        </div>
+      </div>
+    </>
   )
 }
 
@@ -215,7 +250,7 @@ export default function Etapes({ carte }: { carte: CarteHero | null }) {
             <div>
               <h2
                 id={`etape-${etape.langue}`}
-                className="font-display text-[clamp(2.5rem,6vw,4.5rem)] font-bold uppercase leading-[0.92] text-balance"
+                className="font-display text-[clamp(2.25rem,6vw,4.25rem)] font-extrabold leading-[0.95] tracking-[-0.035em] text-balance"
               >
                 {etape.titre}
               </h2>

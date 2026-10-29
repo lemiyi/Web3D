@@ -1,11 +1,11 @@
 import { z } from 'zod'
+import { AMBIANCES } from './ambiance.ts'
 
 export const TypeConteSchema = z.enum(['conte', 'legende', 'histoire'])
 
 export const LangueSchema = z.object({
   code: z.string(),
   nom: z.string(),
-  couleur: z.string().regex(/^#[0-9a-fA-F]{6}$/),
 })
 
 export const RegionSchema = z.object({
@@ -43,6 +43,7 @@ const SceneSchema = z
     texteFr: z.string().min(1),
     texteLangue: z.string().min(1),
     illustration: z.string().startsWith('/media/img/'),
+    ambiance: z.enum(AMBIANCES).optional(),
     audio: AudioSchema.optional(),
     segments: z.array(SegmentSchema).optional(),
     suite: z.string().optional(),

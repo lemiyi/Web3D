@@ -21,10 +21,5 @@ export const langueParCode = (code: string) => langues.find((l) => l.code === co
 export const regionParId = (id: string) => regions.find((r) => r.id === id)
 export const numeroDuConte = (id: string) => contes.findIndex((c) => c.id === id) + 1
 
-// Texte lisible (clair ou sombre) sur une couleur de langue.
-export function texteSur(couleur: string) {
-  const [r, g, b] = [1, 3, 5].map((i) => parseInt(couleur.slice(i, i + 2), 16) / 255)
-  const lin = (v: number) => (v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4)
-  const luminance = 0.2126 * lin(r) + 0.7152 * lin(g) + 0.0722 * lin(b)
-  return luminance > 0.25 ? '#0f1640' : '#fbf1d3'
-}
+// La couleur d'une langue vient de token.css (--lang-moore, --lang-dioula…), claire ou sombre selon le thème.
+export const couleurLangue = (code: string) => `var(--lang-${code}, var(--lang-autres))`

@@ -1,28 +1,21 @@
 import { Link, useParams } from 'react-router-dom'
+import Lecteur from '@/components/reader/Lecteur'
 import { conteParId } from '@/lib/contenu'
 
-// Squelette : le lecteur de scènes (rôle B) viendra dans components/reader.
 export default function Conte() {
   const { id } = useParams()
   const conte = id ? conteParId(id) : undefined
 
   if (!conte)
     return (
-      <p className="p-6">
+      <p className="px-5 pt-28">
         Conte introuvable.{' '}
-        <Link to="/carte" className="underline">
+        <Link to="/carte" className="font-bold text-lien underline underline-offset-4">
           Retour à la carte
         </Link>
       </p>
     )
 
-  return (
-    <article className="mx-auto max-w-2xl px-4 py-10">
-      <h1 className="font-serif text-3xl font-bold">{conte.titre.fr}</h1>
-      <p className="mt-2 text-sm">
-        {conte.dureeMinutes} min · {conte.scenes.length} scènes
-      </p>
-      <p className="mt-6">{conte.scenes[0].texteFr}</p>
-    </article>
-  )
+  // `key` : un autre conte repart d'un lecteur neuf.
+  return <Lecteur key={conte.id} conte={conte} />
 }

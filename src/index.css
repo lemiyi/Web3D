@@ -1,61 +1,155 @@
 @import 'tailwindcss';
-@import '@fontsource/barlow/latin-400.css';
-@import '@fontsource/barlow/latin-500.css';
-@import '@fontsource/barlow/latin-600.css';
-@import '@fontsource/barlow-condensed/latin-600.css';
-@import '@fontsource/barlow-condensed/latin-700.css';
-@import '@fontsource-variable/literata/wght.css';
+/* Source unique des couleurs : le design system de l'équipe (thème clair par défaut, thème « veillée »). */
+@import '../token.css';
+@import '@fontsource-variable/manrope/wght.css';
+@import '@fontsource-variable/source-serif-4/standard.css';
 
 /*
- * La Carte Murale : les couleurs viennent des altitudes du Burkina Faso.
- * r0 à r5 sont les bandes de relief, de la vallée (vert) aux hauteurs du sud-ouest (brun).
- * nuit est le fond de la carte hors du pays ; os est le papier clair des étiquettes.
+ * Compléments au design system, valables pour les deux thèmes.
+ * relief-0 à relief-5 : l'échelle d'altitude réelle (vallées vertes, hauteurs brunes), couleurs de données.
  */
-@theme {
-  --color-nuit: #0f1640;
-  --color-indigo: #1d2a6b;
-  --color-os: #fbf1d3;
-  --color-r0: #7fa33f;
-  --color-r1: #a9b445;
-  --color-r2: #e2bd45;
-  --color-r3: #cf8128;
-  --color-r4: #a8401c;
-  --color-r5: #6e2a14;
+:root {
+  --relief-0: #7fa33f;
+  --relief-1: #a9b445;
+  --relief-2: #e2bd45;
+  --relief-3: #cf8128;
+  --relief-4: #a8401c;
+  --relief-5: #6e2a14;
 
-  --font-display: 'Barlow Condensed', 'Arial Narrow', sans-serif;
-  --font-sans: 'Barlow', system-ui, sans-serif;
-  --font-serif: 'Literata Variable', Georgia, serif;
+  --on-lang: #fff8ee;
+  --verre: rgb(255 253 248 / 0.72);
+  --verre-dense: rgb(255 253 248 / 0.93);
+  --verre-bord: rgb(255 255 255 / 0.55);
+  --nav-fond: rgb(255 253 248 / 0.88);
+  --ombre-flottante: 0 8px 28px rgb(23 17 13 / 0.16);
+  --icone-filtre: none;
+  --chevron: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2366513F' stroke-width='3' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+
+  /* Noms posés sur la carte : suivent le thème sur la carte illustrée… */
+  --etiquette: var(--text);
+  --etiquette-discret: var(--text-muted);
+  --etiquette-eau: var(--secondary);
+  --etiquette-halo: var(--surface);
+}
+
+/* …et passent en clair cerné de sombre sur la photo satellite, quel que soit le thème. */
+.fond-satellite {
+  --etiquette: var(--terre-50);
+  --etiquette-discret: var(--terre-100);
+  --etiquette-eau: var(--indigo-100);
+  --etiquette-halo: rgb(23 17 13 / 0.82);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --on-lang: #17110d;
+    --verre: rgb(34 26 20 / 0.72);
+    --verre-dense: rgb(34 26 20 / 0.94);
+    --verre-bord: rgb(255 255 255 / 0.14);
+    --nav-fond: rgb(34 26 20 / 0.88);
+    --ombre-flottante: 0 8px 28px rgb(0 0 0 / 0.5);
+    --icone-filtre: invert(1);
+    --chevron: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23BCA98F' stroke-width='3' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+  }
+}
+
+:root[data-theme='dark'] {
+  --on-lang: #17110d;
+  --verre: rgb(34 26 20 / 0.72);
+  --verre-dense: rgb(34 26 20 / 0.94);
+  --verre-bord: rgb(255 255 255 / 0.14);
+  --nav-fond: rgb(34 26 20 / 0.88);
+  --ombre-flottante: 0 8px 28px rgb(0 0 0 / 0.5);
+  --icone-filtre: invert(1);
+  --chevron: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23BCA98F' stroke-width='3' stroke-linecap='round'><path d='M6 9l6 6 6-6'/></svg>");
+}
+
+/* Les utilitaires pointent vers les variables : un changement de thème les met tous à jour. */
+@theme inline {
+  --color-page: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-ligne: var(--border);
+  --color-ligne-forte: var(--border-strong);
+  --color-texte: var(--text);
+  --color-discret: var(--text-muted);
+  --color-primaire: var(--primary);
+  --color-sur-primaire: var(--on-primary);
+  --color-secondaire: var(--secondary);
+  --color-accent: var(--accent);
+  --color-lien: var(--link);
+  --color-nav: var(--nav-fond);
+  --color-sur-lang: var(--on-lang);
+  --color-relief-0: var(--relief-0);
+  --color-relief-1: var(--relief-1);
+  --color-relief-2: var(--relief-2);
+  --color-relief-3: var(--relief-3);
+  --color-relief-4: var(--relief-4);
+  --color-relief-5: var(--relief-5);
+  --color-terre-50: var(--terre-50);
+  --color-terre-900: var(--terre-900);
+
+  --font-display: 'Manrope Variable', system-ui, sans-serif;
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
+  --font-serif: 'Source Serif 4 Variable', Georgia, serif;
 
   --ease-sortie: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 html {
   min-height: 100%;
-  background: var(--color-nuit);
-  scrollbar-color: var(--color-r3) var(--color-nuit);
+  background: var(--bg);
+  scrollbar-color: var(--border-strong) var(--bg);
 }
 
 body {
   min-height: 100svh;
-  background: var(--color-nuit);
-  color: var(--color-os);
+  background: var(--bg);
+  color: var(--text);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
-  caret-color: var(--color-r2);
+  caret-color: var(--primary);
 }
 
 ::selection {
-  background: var(--color-r2);
-  color: var(--color-nuit);
+  background: var(--accent);
+  color: var(--on-accent);
 }
 
-:focus-visible {
-  outline: 3px solid var(--color-r2);
-  outline-offset: 3px;
+@layer base {
+  :focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+  }
+
+  .sur-teinte :focus-visible {
+    outline-color: var(--terre-900);
+  }
 }
 
-.sur-teinte :focus-visible {
-  outline-color: var(--color-nuit);
+/* Panneau en verre dépoli, avec repli opaque quand le navigateur ne sait pas flouter. */
+.verre,
+.verre-dense {
+  background: var(--verre);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border: 1px solid var(--verre-bord);
+  box-shadow: var(--ombre-flottante);
+}
+
+.verre-dense {
+  background: var(--verre-dense);
+}
+
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .verre,
+  .verre-dense {
+    background: var(--surface);
+  }
+}
+
+.flottant {
+  box-shadow: var(--ombre-flottante);
 }
 
 /* Chiffres alignés pour les latitudes, durées et compteurs. */
@@ -99,4 +193,85 @@ body {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+/* Contrôles de la carte : aucun chrome blanc par défaut de MapLibre. */
+.maplibregl-ctrl-group,
+.maplibregl-ctrl-attrib {
+  background: var(--surface) !important;
+  border: 1px solid var(--border-strong);
+  border-radius: 1.25rem !important;
+  box-shadow: var(--ombre-flottante) !important;
+  overflow: hidden;
+}
+
+.maplibregl-ctrl-group button + button {
+  border-top: 1px solid var(--border) !important;
+}
+
+.maplibregl-ctrl-icon,
+.maplibregl-ctrl-attrib-button {
+  filter: var(--icone-filtre);
+}
+
+.maplibregl-ctrl-attrib {
+  color: var(--text) !important;
+  font-family: var(--font-sans);
+}
+
+.maplibregl-ctrl-attrib a {
+  color: var(--link) !important;
+}
+
+/* Liste déroulante : chevron dessiné, pas celui du navigateur. */
+select {
+  appearance: none;
+  padding-right: 2.75rem;
+  background-image: var(--chevron);
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1rem;
+}
+
+/* Paysage du lecteur : étoiles qui scintillent, lucioles qui dérivent. */
+@keyframes scintille {
+  from {
+    opacity: 0.25;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.etoile {
+  animation: scintille 3s ease-in-out infinite alternate;
+}
+
+@keyframes derive {
+  from {
+    transform: translate(0, 0);
+    opacity: 0.2;
+  }
+  to {
+    transform: translate(34px, -26px);
+    opacity: 1;
+  }
+}
+
+.luciole {
+  animation: derive 6s ease-in-out infinite alternate;
+}
+
+/* Repli 2D du conteur : la bouche s'ouvre pendant la lecture. */
+@keyframes parler {
+  from {
+    transform: scaleY(1);
+  }
+  to {
+    transform: scaleY(3.2);
+  }
+}
+
+.bouche-parle {
+  animation: parler 0.28s ease-in-out infinite alternate;
 }

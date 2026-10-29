@@ -1,0 +1,191 @@
+/*
+ * Design tokens — Contes et Légendes du Burkina Faso
+ * Voir DESIGN_SYSTEM.md pour l'usage et les rapports de contraste vérifiés.
+ * Thème clair par défaut, thème sombre « veillée » via prefers-color-scheme
+ * ou en forçant data-theme="dark" / data-theme="light" sur <html>.
+ */
+
+:root {
+  /* ---------- Palette brute (rampes) ---------- */
+  /* Latérite — terre rouge du Plateau */
+  --laterite-100: #F7DDD2;
+  --laterite-300: #E3A184;
+  --laterite-500: #C65A38;
+  --laterite-600: #A63D22;
+  --laterite-700: #8A3019;
+  --laterite-900: #46170B;
+
+  /* Ocre — or du Sahel, soleil, étoile */
+  --ocre-100: #FBEFCF;
+  --ocre-300: #F2CB6E;
+  --ocre-500: #E0A526;
+  --ocre-700: #A86A00;
+  --ocre-900: #5E3A00;
+
+  /* Savane — végétation, karité, baobab */
+  --savane-100: #DCEFE2;
+  --savane-300: #8CCBA2;
+  --savane-500: #2F9A5C;
+  --savane-700: #1F7A44;
+  --savane-900: #123F25;
+
+  /* Indigo — cotonnades teintes, nuit */
+  --indigo-100: #DDE1F3;
+  --indigo-300: #9AA8F0;
+  --indigo-500: #4A5AB0;
+  --indigo-700: #23306B;
+  --indigo-900: #131A3E;
+
+  /* Terre — neutres chauds (coton, sable, charbon) */
+  --terre-50: #FBF5EA;
+  --terre-100: #F3E9D6;
+  --terre-200: #E2D3B8;
+  --terre-400: #A89580; /* décoratif : 2,66:1 sur --bg, ne sert pas de contour de champ */
+  --terre-600: #66513F;
+  --terre-800: #2B1E16;
+  --terre-900: #17110D;
+
+  /* Couleurs du drapeau — usage décoratif ou grands aplats uniquement */
+  --faso-rouge: #EF2B2D;
+  --faso-vert: #009E49;
+  --faso-or: #FCD116;
+
+  /* ---------- Jetons sémantiques : thème clair ---------- */
+  --bg: #FBF5EA;
+  --surface: #FFFDF8;
+  --surface-2: #F3E9D6;
+  --border: #E2D3B8;
+  --border-strong: #857058;
+  --text: #2B1E16;
+  --text-muted: #66513F;
+
+  --primary: #A63D22;
+  --primary-hover: #8A3019;
+  --on-primary: #FFF8EE;
+  --secondary: #23306B;
+  --on-secondary: #FFF8EE;
+  --accent: #E0A526;
+  --on-accent: #2B1E16;
+  --link: #23306B;
+  --focus-ring: #23306B;
+
+  --success: #1F7A44;
+  --warning: #8A5A00;
+  --danger: #B3202A;
+  --info: #23306B;
+
+  /* ---------- Langues (marqueurs de carte), sur fond clair ---------- */
+  --lang-moore: #A63D22;
+  --lang-dioula: #1F7A44;
+  --lang-fulfulde: #23306B;
+  --lang-gulmancema: #A86A00;
+  --lang-dagara: #7A3E8E;
+  --lang-bissa: #0E7C86;
+  --lang-bobo: #B02A6B;
+  --lang-autres: #5E5248;
+
+  /* ---------- Ambiances de scène (fonds du lecteur) ---------- */
+  --scene-aube: linear-gradient(180deg, #F7DDD2 0%, #FBEFCF 100%);
+  --scene-jour: linear-gradient(180deg, #FBEFCF 0%, #FBF5EA 100%);
+  --scene-crepuscule: linear-gradient(180deg, #8A3019 0%, #E0A526 100%);
+  --scene-nuit: linear-gradient(180deg, #131A3E 0%, #23306B 100%);
+
+  /* ---------- Carte ---------- */
+  --map-land: #F3ECDD;
+  --map-water: #BFD7E3;
+  --map-region-fill: rgba(224, 165, 38, 0.12);
+  --map-region-line: #A89580;
+  --map-region-active: #A63D22;
+  --map-marker-ring: #FFFFFF;
+
+  color-scheme: light;
+}
+
+/* ---------- Thème sombre « veillée » ---------- */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #17110D;
+    --surface: #221A14;
+    --surface-2: #2E241C;
+    --border: #433528;
+  --border-strong: #9A8670;
+    --text: #F4E9D8;
+    --text-muted: #BCA98F;
+
+    --primary: #E8825E;
+    --primary-hover: #F09A7C;
+    --on-primary: #1C100A;
+    --secondary: #9AA8F0;
+    --on-secondary: #131A3E;
+    --accent: #F2B83B;
+    --on-accent: #2B1E16;
+    --link: #9AA8F0;
+    --focus-ring: #F2B83B;
+
+    --success: #5CC187;
+    --warning: #E8B04A;
+    --danger: #F07A7F;
+    --info: #9AA8F0;
+
+    --lang-moore: #E8825E;
+    --lang-dioula: #5CC187;
+    --lang-fulfulde: #9AA8F0;
+    --lang-gulmancema: #E0A526;
+    --lang-dagara: #C58BDB;
+    --lang-bissa: #4FC3CC;
+    --lang-bobo: #EE7FB0;
+    --lang-autres: #BCA98F;
+
+    --map-land: #221A14;
+    --map-water: #1B2A3A;
+    --map-region-fill: rgba(242, 184, 59, 0.10);
+    --map-region-line: #66513F;
+    --map-region-active: #E8825E;
+    --map-marker-ring: #17110D;
+
+    color-scheme: dark;
+  }
+}
+
+:root[data-theme="dark"] {
+  --bg: #17110D;
+  --surface: #221A14;
+  --surface-2: #2E241C;
+  --border: #433528;
+  --border-strong: #9A8670;
+  --text: #F4E9D8;
+  --text-muted: #BCA98F;
+
+  --primary: #E8825E;
+  --primary-hover: #F09A7C;
+  --on-primary: #1C100A;
+  --secondary: #9AA8F0;
+  --on-secondary: #131A3E;
+  --accent: #F2B83B;
+  --on-accent: #2B1E16;
+  --link: #9AA8F0;
+  --focus-ring: #F2B83B;
+
+  --success: #5CC187;
+  --warning: #E8B04A;
+  --danger: #F07A7F;
+  --info: #9AA8F0;
+
+  --lang-moore: #E8825E;
+  --lang-dioula: #5CC187;
+  --lang-fulfulde: #9AA8F0;
+  --lang-gulmancema: #E0A526;
+  --lang-dagara: #C58BDB;
+  --lang-bissa: #4FC3CC;
+  --lang-bobo: #EE7FB0;
+  --lang-autres: #BCA98F;
+
+  --map-land: #221A14;
+  --map-water: #1B2A3A;
+  --map-region-fill: rgba(242, 184, 59, 0.10);
+  --map-region-line: #66513F;
+  --map-region-active: #E8825E;
+  --map-marker-ring: #17110D;
+
+  color-scheme: dark;
+}

@@ -1,44 +1,78 @@
 {
   "id": "yennenga",
-  "titre": { "fr": "La princesse Yennenga", "langue": "[titre en mooré à compléter]" },
+  "titre": {
+    "fr": "La princesse Yennenga",
+    "langue": "[titre en mooré à compléter]"
+  },
   "type": "legende",
   "region": "centre",
   "langue": "moore",
   "coordonnees": [-1.52, 12.37],
   "dureeMinutes": 4,
-  "resume": "[Conte de démonstration pour valider la structure — à remplacer par le vrai récit.]",
-  "conteur": { "nom": "[à renseigner]", "consentement": false },
-  "sources": ["[à renseigner]"],
+  "resume": "Une princesse refuse le mariage que son père lui destine, s'enfuit à cheval et fonde, sans le savoir, la lignée des royaumes mossi. Résumé provisoire à remplacer par le récit d'un conteur.",
+  "conteur": {
+    "nom": "[à renseigner]",
+    "consentement": false
+  },
+  "sources": [
+    "Tradition orale burkinabè, plusieurs versions : résumé provisoire réécrit pour la démonstration, à remplacer par le récit d'un conteur (voir Mossi Kingdoms, Wikipédia)."
+  ],
   "scenes": [
     {
       "id": "s1",
-      "texteFr": "[Démo] La princesse part à cheval, seule, vers l'inconnu.",
+      "texteFr": "[Démo] Yennenga est la fille d'un roi. Un matin, elle refuse le mariage que l'on prépare pour elle. Elle selle son cheval et s'enfuit, loin du palais de son père.",
       "texteLangue": "[texte en mooré à compléter]",
       "illustration": "/media/img/yennenga/s1.svg",
+      "ambiance": "aube",
       "suite": "s2"
     },
     {
       "id": "s2",
-      "texteFr": "[Démo] Au bord de la route, deux chemins s'ouvrent devant elle.",
+      "texteFr": "[Démo] Elle chevauche des jours entiers à travers la savane, jusqu'à un endroit où le chemin se sépare en deux.",
       "texteLangue": "[texte en mooré à compléter]",
       "illustration": "/media/img/yennenga/s1.svg",
+      "ambiance": "jour",
       "choix": [
-        { "label": "Suivre la rivière", "vers": "s3a" },
-        { "label": "Entrer dans la forêt", "vers": "s3b" }
+        {
+          "label": "Suivre la rivière",
+          "vers": "s3a"
+        },
+        {
+          "label": "Entrer dans la forêt",
+          "vers": "s3b"
+        }
       ]
     },
     {
       "id": "s3a",
-      "texteFr": "[Démo] La rivière la mène jusqu'à un village.",
+      "texteFr": "[Démo] Elle longe la rivière, boit à ses eaux fraîches et laisse son cheval se reposer à l'ombre des grands arbres.",
       "texteLangue": "[texte en mooré à compléter]",
       "illustration": "/media/img/yennenga/s1.svg",
-      "fin": true
+      "ambiance": "jour",
+      "suite": "s4"
     },
     {
       "id": "s3b",
-      "texteFr": "[Démo] La forêt cache un chasseur solitaire.",
+      "texteFr": "[Démo] Elle s'enfonce dans la forêt, où la lumière tombe en taches dorées, et entend au loin les pas d'un chasseur.",
       "texteLangue": "[texte en mooré à compléter]",
       "illustration": "/media/img/yennenga/s1.svg",
+      "ambiance": "crepuscule",
+      "suite": "s4"
+    },
+    {
+      "id": "s4",
+      "texteFr": "[Démo] Elle rencontre Rialé, un chasseur d'éléphants. Ils s'installent ensemble, et bientôt un fils vient au monde.",
+      "texteLangue": "[texte en mooré à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "ambiance": "crepuscule",
+      "suite": "s5"
+    },
+    {
+      "id": "s5",
+      "texteFr": "[Démo] L'enfant s'appelle Ouédraogo, ce qui veut dire étalon, en souvenir du cheval qui a porté sa mère. Devenu grand, il fondera les royaumes des Mossi.",
+      "texteLangue": "[texte en mooré à compléter]",
+      "illustration": "/media/img/yennenga/s1.svg",
+      "ambiance": "nuit",
       "fin": true
     }
   ]

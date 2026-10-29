@@ -1,41 +1,41 @@
 import { Link } from 'react-router-dom'
 
-type Props = { to: string; children: string; surTeinte?: boolean }
-
-// Le bouton principal reprend la barre d'échelle d'une carte : segments alternés au-dessus du libellé.
-export default function BoutonEchelle({ to, children, surTeinte = false }: Props) {
-  const encre = surTeinte ? 'border-nuit' : 'border-os'
-  const segment = surTeinte ? 'bg-nuit' : 'bg-os'
+// Le bouton d'action reprend la barre d'échelle d'une carte : segments alternés au-dessus d'une grosse pilule.
+export default function BoutonEchelle({
+  to,
+  children,
+}: {
+  to: string
+  children: string
+}) {
   return (
-    <Link to={to} className="group block w-fit">
-      <span aria-hidden="true" className={`flex h-2.5 border ${encre}`}>
+    <Link to={to} className="group flex w-fit flex-col gap-1.5">
+      <span
+        aria-hidden="true"
+        className="flex h-2 overflow-hidden rounded-full border border-texte/70"
+      >
         {[0, 1, 2, 3, 4, 5].map((i) => (
           <i
             key={i}
             className={`flex-1 transition-[flex-grow] duration-300 group-hover:first:flex-[2] ${
-              i % 2 === 0 ? segment : ''
+              i % 2 === 0 ? 'bg-texte' : ''
             }`}
           />
         ))}
       </span>
-      <span
-        className={`mt-1.5 flex items-center gap-3 px-6 py-3 font-display text-2xl font-bold uppercase tracking-wider transition-colors duration-200 ${
-          surTeinte
-            ? 'bg-nuit text-os group-hover:bg-indigo'
-            : 'bg-r2 text-nuit group-hover:bg-os'
-        }`}
-      >
+      <span className="flottant flex items-center gap-3 rounded-full bg-texte px-8 py-4 text-lg font-bold text-page transition-transform duration-200 group-hover:-translate-y-0.5">
         {children}
         <svg
           aria-hidden="true"
           viewBox="0 0 24 24"
-          className="size-6 transition-transform duration-300 group-hover:translate-x-1"
+          className="size-5 transition-transform duration-300 group-hover:translate-x-1"
           fill="none"
           stroke="currentColor"
           strokeWidth="2.5"
-          strokeLinecap="square"
+          strokeLinecap="round"
+          strokeLinejoin="round"
         >
-          <path d="M3 12h17M14 5l7 7-7 7" />
+          <path d="M4 12h16M14 6l6 6-6 6" />
         </svg>
       </span>
     </Link>

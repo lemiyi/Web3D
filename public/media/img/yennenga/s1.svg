@@ -1,6 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450" role="img" aria-label="Illustration provisoire">
-  <rect width="800" height="450" fill="#e9d3a6"/>
-  <circle cx="620" cy="110" r="55" fill="#c98a14"/>
-  <path d="M0 330 Q200 270 400 320 T800 300 V450 H0Z" fill="#7a4a2b"/>
-  <text x="400" y="230" text-anchor="middle" font-family="sans-serif" font-size="28" fill="#3b2a1a">Illustration provisoire</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 450">
+  <rect width="800" height="450" fill="#0f1640"/>
+  <circle cx="590" cy="150" r="64" fill="#e2bd45"/>
+  <path d="M0 290 Q130 232 270 272 T540 262 T800 238 V450 H0Z" fill="#7fa33f" stroke="#0f1640" stroke-width="3"/>
+  <path d="M0 322 Q160 276 310 312 T610 300 T800 284 V450 H0Z" fill="#a9b445" stroke="#0f1640" stroke-width="3"/>
+  <path d="M0 352 Q140 316 290 346 T580 336 T800 322 V450 H0Z" fill="#e2bd45" stroke="#0f1640" stroke-width="3"/>
+  <path d="M0 384 Q170 352 330 380 T640 372 T800 360 V450 H0Z" fill="#cf8128" stroke="#0f1640" stroke-width="3"/>
+  <path d="M0 418 Q150 394 320 414 T650 408 T800 400 V450 H0Z" fill="#a8401c" stroke="#0f1640" stroke-width="3"/>
+  <g fill="none" stroke="#0f1640" stroke-width="6" stroke-linecap="round">
+    <path d="M214 372 V334 Q214 320 198 308"/>
+    <path d="M214 334 Q216 320 232 306"/>
+  </g>
+  <ellipse cx="214" cy="296" rx="66" ry="15" fill="#0f1640"/>
+  <ellipse cx="190" cy="308" rx="34" ry="9" fill="#0f1640"/>
+  <ellipse cx="244" cy="304" rx="36" ry="9" fill="#0f1640"/>
 </svg>

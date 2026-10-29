@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import type { CarteHero } from '@/lib/carteHero'
-import { contes, langueParCode, numeroDuConte, texteSur } from '@/lib/contenu'
+import { contes, couleurLangue, langueParCode, numeroDuConte } from '@/lib/contenu'
 import { BBOX, VIEWBOX, versViewBox } from '@/lib/projection'
+import { NB_BANDES } from '@/lib/relief'
 import { useAppStore } from '@/store/useAppStore'
 
 const [, , LARGEUR, HAUTEUR] = VIEWBOX
@@ -11,25 +12,33 @@ const MERIDIENS = [-5, -4, -3, -2, -1, 0, 1, 2]
 const graduation = (valeur: number, positif: string, negatif: string) =>
   `${Math.abs(valeur)}°${valeur >= 0 ? positif : negatif}`
 
-// Cadre, grille de coordonnées (exacte : 1 degré) : visible avant l'arrivée des tracés.
+// Cadre et grille de coordonnées (exacte : 1 degré) : visibles avant l'arrivée des tracés.
 function Grille() {
   return (
-    <g aria-hidden="true" className="font-display" fontSize="11" letterSpacing="1">
+    <g aria-hidden="true" fontSize="11" fontWeight="600" letterSpacing=".5">
       <rect
         x="1"
         y="1"
         width={LARGEUR - 2}
         height={HAUTEUR - 2}
+        rx="18"
         fill="none"
-        stroke="#3a4796"
+        stroke="var(--border-strong)"
         strokeWidth="1.5"
       />
       {PARALLELES.map((lat) => {
         const { y } = versViewBox([BBOX.w, lat])
         return (
           <g key={lat}>
-            <line x1="0" x2={LARGEUR} y1={y} y2={y} stroke="#26347f" strokeWidth=".7" />
-            <text x="8" y={y - 4} fill="#8f9be0">
+            <line
+              x1="0"
+              x2={LARGEUR}
+              y1={y}
+              y2={y}
+              stroke="var(--border)"
+              strokeWidth=".8"
+            />
+            <text x="12" y={y - 4} fill="var(--text-muted)">
               {graduation(lat, 'N', 'S')}
             </text>
           </g>
@@ -39,8 +48,15 @@ function Grille() {
         const { x } = versViewBox([lon, BBOX.s])
         return (
           <g key={lon}>
-            <line x1={x} x2={x} y1="0" y2={HAUTEUR} stroke="#26347f" strokeWidth=".7" />
-            <text x={x + 4} y={HAUTEUR - 8} fill="#8f9be0">
+            <line
+              x1={x}
+              x2={x}
+              y1="0"
+              y2={HAUTEUR}
+              stroke="var(--border)"
+              strokeWidth=".8"
+            />
+            <text x={x + 4} y={HAUTEUR - 10} fill="var(--text-muted)">
               {graduation(lon, 'E', 'O')}
             </text>
           </g>
@@ -64,7 +80,7 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
       viewBox={`0 0 ${LARGEUR} ${HAUTEUR}`}
       role="group"
       aria-label="Carte en relief du Burkina Faso avec les contes"
-      className="h-auto w-full lg:h-full lg:max-h-[calc(100svh-3.5rem)]"
+      className="h-auto w-full lg:h-full lg:max-h-[calc(100svh-9rem)]"
     >
       <Grille />
 
@@ -77,15 +93,16 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
           </defs>
 
           <g clipPath="url(#clip-pays)">
-            <path d={carte.pays} fill="var(--color-r0)" />
-            {carte.bandes.map((b, i) => (
+            <path d={carte.pays} fill="var(--relief-0)" />
+            {carte.bandes.slice(0, NB_BANDES - 1).map((b, i) => (
               <g
                 key={b.min}
                 className="bande"
                 style={{ '--i': i } as React.CSSProperties}
-                fill={`var(--color-r${i + 1})`}
+                fill={`var(--relief-${i + 1})`}
                 fillRule="evenodd"
-                stroke="rgb(15 22 64 / 0.3)"
+                stroke="var(--terre-900)"
+                strokeOpacity=".3"
                 strokeWidth=".5"
               >
                 <path id={`bande-${i}`} d={b.d} />
@@ -93,8 +110,8 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
             ))}
             <g
               fill="none"
-              stroke="var(--color-indigo)"
-              strokeWidth="1.5"
+              stroke="var(--secondary)"
+              strokeWidth="1.6"
               strokeLinecap="round"
             >
               {carte.rivieres.map((r) => (
@@ -105,7 +122,8 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
 
           <g
             fill="none"
-            stroke="rgb(15 22 64 / 0.55)"
+            stroke="var(--terre-900)"
+            strokeOpacity=".5"
             strokeWidth=".8"
             strokeDasharray="4 3"
           >
@@ -116,8 +134,8 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
           <path
             d={carte.pays}
             fill="none"
-            stroke="var(--color-os)"
-            strokeWidth="1.6"
+            stroke="var(--text)"
+            strokeWidth="1.8"
             strokeLinejoin="round"
           />
         </>
@@ -126,7 +144,6 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
       {contes.map((conte, i) => {
         const { x, y } = versViewBox(conte.coordonnees)
         const langue = langueParCode(conte.langue)
-        const couleur = langue?.couleur ?? '#fbf1d3'
         const aGauche = x > LARGEUR * 0.6
         return (
           <g
@@ -143,34 +160,34 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
             }}
             className="repere group cursor-pointer outline-none"
           >
-            <circle cx={x} cy={y} r="34" fill="transparent" />
+            <circle cx={x} cy={y} r="45" fill="transparent" />
             <g className="repere-apparition" style={{ '--i': i } as React.CSSProperties}>
               <circle
                 cx={x}
                 cy={y}
                 r="17"
-                fill={couleur}
-                stroke="var(--color-nuit)"
+                fill={couleurLangue(conte.langue)}
+                stroke="var(--surface)"
                 strokeWidth="3.5"
                 className="transition-transform duration-300 [transform-box:fill-box] [transform-origin:center] group-hover:scale-125 group-focus-visible:scale-125"
               />
               <circle
                 cx={x}
                 cy={y}
-                r="21.5"
+                r="22"
                 fill="none"
-                stroke="var(--color-os)"
-                strokeWidth="1.5"
+                stroke="var(--text)"
+                strokeWidth="2"
                 className="opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
               />
               <text
                 x={x}
-                y={y + 5.5}
+                y={y + 6}
                 textAnchor="middle"
-                fill={texteSur(couleur)}
-                className="pointer-events-none font-display chiffres"
+                fill="var(--on-lang)"
+                className="chiffres pointer-events-none font-display"
                 fontSize="17"
-                fontWeight="700"
+                fontWeight="800"
               >
                 {numeroDuConte(conte.id)}
               </text>
@@ -179,17 +196,16 @@ export default function HeroMap({ carte }: { carte: CarteHero | null }) {
               x={aGauche ? x - 28 : x + 28}
               y={y + 6}
               textAnchor={aGauche ? 'end' : 'start'}
-              fill="var(--color-os)"
-              stroke="var(--color-nuit)"
+              fill="var(--text)"
+              stroke="var(--surface)"
               strokeWidth="5"
               paintOrder="stroke"
               strokeLinejoin="round"
               className="pointer-events-none font-display opacity-0 transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100"
               fontSize="19"
-              fontWeight="600"
-              letterSpacing="1"
+              fontWeight="700"
             >
-              {conte.titre.fr.toUpperCase()}
+              {conte.titre.fr}
             </text>
           </g>
         )

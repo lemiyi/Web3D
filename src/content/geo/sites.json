@@ -1,0 +1,35 @@
+{
+  "source": "Coordonnées des articles Wikipédia (fr), relevées le 28 octobre 2026",
+  "sites": [
+    {
+      "id": "sindou",
+      "nom": "Pics de Sindou",
+      "detail": "Falaises de grès sculptées par l’érosion",
+      "centre": [-5.1542, 10.6542]
+    },
+    {
+      "id": "karfiguela",
+      "nom": "Cascades de Karfiguéla",
+      "detail": "Chutes de la Comoé, près des dômes de Fabédougou",
+      "centre": [-4.8233, 10.7242]
+    },
+    {
+      "id": "fabedougou",
+      "nom": "Dômes de Fabédougou",
+      "detail": "Rochers aux sommets arrondis, à 15 km de Banfora",
+      "centre": [-4.8084, 10.727]
+    },
+    {
+      "id": "tengrela",
+      "nom": "Lac de Tengrela",
+      "detail": "Lac de 5,8 km² près de Banfora",
+      "centre": [-4.8417, 10.6463]
+    },
+    {
+      "id": "arly",
+      "nom": "Parc national d’Arly",
+      "detail": "760 km² d’aire protégée, éléphants et lions ; patrimoine mondial avec le W et la Pendjari",
+      "centre": [1.4683, 11.5836]
+    }
+  ]
+}

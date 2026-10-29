@@ -21,7 +21,7 @@ describe('ConteSchema', () => {
 
   it('refuse une scène sans suite, choix ni fin', () => {
     const conte = structuredClone(yennenga)
-    delete (conte.scenes[2] as { fin?: boolean }).fin
+    delete (conte.scenes[conte.scenes.length - 1] as { fin?: boolean }).fin
     expect(ConteSchema.safeParse(conte).success).toBe(false)
   })
 })

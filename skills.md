@@ -2,7 +2,7 @@
 
 Ce document recense les **skills** (consignes spécialisées que Claude Code charge pour une tâche précise) et les **plugins** qui peuvent aider l'équipe sur ce projet : carte interactive, lecteur de conte, animations, 3D, audio, accessibilité, rapport.
 
-> **Honnêteté sur la 3D.** Au moment de la rédaction (27 oct. 2026), une recherche dans le catalogue de skills et de plugins avec les mots-clés *three.js, 3D, WebGL, MapLibre, GSAP, animation* **n'a trouvé aucun skill dédié à Three.js ni à la 3D**. La 3D du projet repose sur la carte inclinée de MapLibre (voir §5) et sur des **bibliothèques** JavaScript, pas sur un skill. Si un skill Three.js apparaît plus tard, il se cherche avec la commande de la §6.
+> **Mise à jour sur la 3D.** Une première recherche n'avait trouvé aucun skill Three.js ; une recherche plus large a trouvé le plugin communautaire **`parallax-threejs`**. Il sert à **déboguer et tester** une scène Three.js/GLSL (graphe de scène, console, état GL, tests de régression visuelle), pas à la **concevoir**. Il ajoute des serveurs MCP et un hook : à relire avant installation. La conception de la 3D repose sur la carte inclinée de MapLibre et sur des **bibliothèques** (§5). Voir [`DIRECTION_VISUELLE.md`](DIRECTION_VISUELLE.md) pour les plugins de design, d'images et d'animation (`frontend-design`, `Design`, `Website Design`, `image-generation`) et le plan complet du rendu immersif.
 
 ---
 
@@ -203,3 +203,22 @@ Les 4 membres obtiendront alors des résultats homogènes, même s'ils travaille
 - Le code généré doit être **compris par celui qui le fusionne** : le rapport devra expliquer vos choix, et l'évaluateur peut poser des questions.
 - Les contenus culturels (contes, traductions, enregistrements) doivent venir de **personnes qui connaissent ces récits**, pas être inventés ou « complétés » par une IA.
 - Les outils d'IA ne sont pas fiables pour le mooré, le dioula ou le fulfuldé : faites valider toute traduction par un locuteur.
+
+---
+
+## 11. Design system des couleurs
+
+La palette du projet (couleurs inspirées de la latérite, du Sahel, de la savane, de l'indigo et du drapeau, thèmes jour et « veillée », couleurs des langues sur la carte, contrastes vérifiés) est décrite dans [`DESIGN_SYSTEM.md`](DESIGN_SYSTEM.md). Les variables CSS sont dans [`tokens.css`](tokens.css) et un aperçu visuel dans [`palette.html`](palette.html).
+
+À donner à `impeccable` dès le premier jour :
+
+```
+Avec impeccable, applique DESIGN_SYSTEM.md et tokens.css à tout le site.
+Aucune couleur en dur : uniquement les variables CSS.
+```
+
+---
+
+## 12. Direction visuelle « rendu immersif »
+
+Le style visé (héros plein écran, navigation en pilule, panneaux en verre, objets 3D pilotés par le défilement) et les skills associés sont dans [`DIRECTION_VISUELLE.md`](DIRECTION_VISUELLE.md).

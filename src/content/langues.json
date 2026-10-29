@@ -1,8 +1,26 @@
 [
-  { "code": "moore", "nom": "Mooré", "couleur": "#b8431f" },
-  { "code": "dioula", "nom": "Dioula", "couleur": "#2f7d4f" },
-  { "code": "fulfulde", "nom": "Fulfuldé", "couleur": "#c98a14" },
-  { "code": "gulmancema", "nom": "Gulmancema", "couleur": "#2b3a8c" },
-  { "code": "dagara", "nom": "Dagara", "couleur": "#7a3e8c" },
-  { "code": "bissa", "nom": "Bissa", "couleur": "#0f7c8a" }
+  {
+    "code": "moore",
+    "nom": "Mooré"
+  },
+  {
+    "code": "dioula",
+    "nom": "Dioula"
+  },
+  {
+    "code": "fulfulde",
+    "nom": "Fulfuldé"
+  },
+  {
+    "code": "gulmancema",
+    "nom": "Gulmancema"
+  },
+  {
+    "code": "dagara",
+    "nom": "Dagara"
+  },
+  {
+    "code": "bissa",
+    "nom": "Bissa"
+  }
 ]
